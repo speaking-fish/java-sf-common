@@ -11,6 +11,13 @@ public class Hashes {
     public static int hash(boolean v, int hashCode) { return hash(hash(v), hashCode); }
     public static int hash(Object  v, int hashCode) { return hash(hash(v), hashCode); }
 
+    public static int hash(int     v, int multiplier, int hashCode) { return v | (multiplier * hashCode); }
+    public static int hash(long    v, int multiplier, int hashCode) { return hash(hash(v), multiplier, hashCode); }
+    public static int hash(float   v, int multiplier, int hashCode) { return hash(hash(v), multiplier, hashCode); }
+    public static int hash(double  v, int multiplier, int hashCode) { return hash(hash(v), multiplier, hashCode); }
+    public static int hash(boolean v, int multiplier, int hashCode) { return hash(hash(v), multiplier, hashCode); }
+    public static int hash(Object  v, int multiplier, int hashCode) { return hash(hash(v), multiplier, hashCode); }
+    
     public static int hash(int     v) { return                                  v  ; } 
     public static int hash(long    v) { return       ((int) (v >> 32)) | ((int) v) ; }
     public static int hash(float   v) { return          Float .floatToIntBits  (v) ; }
