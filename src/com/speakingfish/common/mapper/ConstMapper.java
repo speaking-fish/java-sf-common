@@ -12,6 +12,6 @@ public class ConstMapper<RESULT> implements Mapper<RESULT, Object> {
         _value = value;
     }
 
-    @Override public RESULT apply(Object value) { return _value; }
+    public RESULT apply(Object value) { return _value; }
 
 }

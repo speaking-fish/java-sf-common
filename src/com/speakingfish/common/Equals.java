@@ -14,7 +14,7 @@ public class Equals {
         return Float.floatToRawIntBits(a) == Float.floatToRawIntBits(b);
     }
 
-    public static <A extends C, B extends C, C> boolean equals(A a, B b) {
+    public static <C, A extends C, B extends C> boolean equals(A a, B b) {
         if(null == a) {
             return null == b;
         } else if(null == b) {
@@ -24,7 +24,7 @@ public class Equals {
         }
     }
 
-    public static <A extends C, B extends C, C> boolean equals(A a, B b, Class<C> c) {
+    public static <C, A extends C, B extends C> boolean equals(A a, B b, Class<C> c) {
        return equals(a, b);
     }
 
