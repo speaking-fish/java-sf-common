@@ -2,6 +2,8 @@ package com.speakingfish.common;
 
 import static java.lang.Math.*;
 
+import com.speakingfish.common.annotation.Compatibility.*;
+
 public class Texts {
     
     public static String left(String src, int count) {
@@ -76,5 +78,7 @@ public class Texts {
         }
         return null;
     }
-    
+
+    static { Dummy.dummy(); }
+
 }

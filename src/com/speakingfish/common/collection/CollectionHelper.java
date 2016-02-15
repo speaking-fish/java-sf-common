@@ -43,7 +43,7 @@ public class CollectionHelper {
     protected static class EmptySortedSet<E> extends AbstractSet<E> implements SortedSet<E>, Serializable {
         private static final long serialVersionUID = 1582296315990362920L;
     
-        public Iterator<E> iterator() { return Collections.emptyIterator(); }
+        public Iterator<E> iterator() { return Collections.<E>emptyList().iterator()/* 1.5 compatibility emptyIterator()*/; }
     
         public int size() { return 0; }
         public boolean isEmpty() { return true; }

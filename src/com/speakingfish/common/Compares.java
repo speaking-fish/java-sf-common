@@ -1,6 +1,7 @@
 package com.speakingfish.common;
 
 import java.util.Iterator;
+import com.speakingfish.common.annotation.Compatibility.*;
 
 public class Compares {
 
@@ -256,5 +257,7 @@ public class Compares {
         }
         return null;
     }
-    
+
+    static { Dummy.dummy(); }
+
 }
