@@ -62,8 +62,12 @@ public class Texts {
         
     }
     
+    public static boolean isEmpty(String value) {
+        return 0 == value.length();
+    }
+    
     public static boolean filled(String value) {
-        return (null != value) && !value.isEmpty();
+        return (null != value) && !isEmpty(value);
     }
     
     public static String firstFilled(String a, String b) {
