@@ -1,26 +1,27 @@
 package com.speakingfish.common;
 
 import java.io.Serializable;
-import java.util.AbstractMap;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Set;
-import com.speakingfish.common.map.AbstractMap.SimpleImmutableEntry;
+
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.SortedMap;
 
 import com.speakingfish.common.function.Mapper;
 
+import com.speakingfish.common.map.AbstractMap;
+
 import static com.speakingfish.common.collection.CollectionHelper.*;
 
 public class Maps {
     
     public static <K, V> Entry<K, V> keyValue(K key, V value) {
-        return new SimpleImmutableEntry<K, V>(key, value);
+        return new AbstractMap.SimpleImmutableEntry<K, V>(key, value);
     }
 
     public static <
@@ -129,5 +130,5 @@ public class Maps {
     public static <K, V> SortedMap<K, V> emptySortedMap() {
         return (SortedMap<K, V>) EMPTY_SORTED_MAP;
     }
-
+    
 }

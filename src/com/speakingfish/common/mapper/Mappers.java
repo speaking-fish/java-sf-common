@@ -22,7 +22,7 @@ public class Mappers {
             }
         };
     }
-    
+
     public static <
         KEY, RESULT, SOURCE
     > Mapper<Entry<KEY, RESULT>, Entry<KEY, SOURCE>> mapperEntryValue(
@@ -47,6 +47,13 @@ public class Mappers {
         return new Acceptor<T>() {
             public boolean test(T value) {
                 return mapper.apply(value);
+            }};
+    }
+
+    public static <R, S> Acceptor<S> acceptor(final Acceptor<R> acceptor, final Mapper<R, S> mapper) {
+        return new Acceptor<S>() {
+            public boolean test(S value) {
+                return acceptor.test(mapper.apply(value));
             }};
     }
     
@@ -85,5 +92,23 @@ public class Mappers {
                 return defaultValue;
             }};
     }
+
+    public static final Mapper<Object, Entry<?, ?>> MAPPER_ENTRY_KEY = new Mapper<Object, Entry<?, ?>>() {
+        public Object apply(Entry<?, ?> src) { return src.getKey  (); }
+    }; 
+    
+    public static final Mapper<Object, Entry<?, ?>> MAPPER_ENTRY_VALUE = new Mapper<Object, Entry<?, ?>>() {
+        public Object apply(Entry<?, ?> src) { return src.getValue(); }
+    }; 
+    
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public static <K, V> Mapper<K, Entry<K, V>> mapperEntryKey() {
+        return (Mapper<K, Entry<K, V>>) (Mapper) MAPPER_ENTRY_KEY;
+    };
+    
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static <K, V> Mapper<V, Entry<K, V>> mapperEntryValue() {
+        return (Mapper<V, Entry<K, V>>) (Mapper) MAPPER_ENTRY_VALUE;
+    };
 
 }

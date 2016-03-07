@@ -82,7 +82,29 @@ public class Texts {
         }
         return null;
     }
+    
+    public static StringBuilder duplicate(StringBuilder dest, int count, String src) {
+        for(; 0 < count; --count) {
+            dest.append(src);
+        }
+        return dest;
+    }
+    
+    public static String duplicate(int count, char[] src) {
+        int srcLength = src.length;
+        int pos = count * srcLength;
+        final char[] result = new char[pos];
+        while(0 < pos) {
+            pos-= srcLength;
+            System.arraycopy(src, 0, result, pos, srcLength);
+        }
+        return new String(result);
+    }
 
+    public static String duplicate(int count, String src) {
+        return duplicate(count, src.toCharArray());
+    }
+    
     static { Dummy.dummy(); }
 
 }
