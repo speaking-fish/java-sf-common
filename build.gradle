@@ -1,6 +1,9 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
-version = '1.0-SNAPSHOT' 
+apply plugin: 'maven'
+
+sourceCompatibility = 1.5
+version = '1.0'
 
 repositories {
     mavenCentral()
@@ -8,5 +11,23 @@ repositories {
 
 jar {
     manifest {
+        attributes(
+            'Implementation-Title': 'Common speakingfish module',
+            'Implementation-Version': version
+        )
     }
+}
+    
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+}
+
+dependencies {
+    compile project(':java-sf-common-compatibility')
+    compile project(':java-sf-common-function')
+    testCompile group: 'junit', name: 'junit', version: '4.+'
 }
