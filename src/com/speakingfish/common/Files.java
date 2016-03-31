@@ -66,7 +66,34 @@ public class Files {
             }
         }
     }
-    
+
+    public static void appendAll(File file, byte[] data) {
+        final ByteBuffer buffer = ByteBuffer.allocate(data.length);
+        buffer.put(data);
+        buffer.position(0);
+        final FileOutputStream stream;
+        try {
+            stream = new FileOutputStream(file, true);
+        } catch(IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            final FileChannel channel = stream.getChannel();
+            @SuppressWarnings("unused")
+            final int writeCount;
+            try {
+                writeCount = channel.write(buffer);
+            } catch(IOException e) {
+                throw new RuntimeException(e);
+            }
+        } finally {
+            try {
+                stream.close();
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public static void copyAll(OutputStream dest, InputStream src, int bufferSize) {
         final byte[] buffer = new byte[bufferSize];
