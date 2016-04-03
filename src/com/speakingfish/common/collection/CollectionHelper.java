@@ -11,6 +11,8 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.SortedSet;
 
+import com.speakingfish.common.function.ParamInvoker;
+
 public class CollectionHelper {
 
     public static <
@@ -25,6 +27,32 @@ public class CollectionHelper {
         }
         return dest;
     }
+    
+    public static <T_DEST, T_ELEMENT> T_DEST collect(
+        T_DEST                          dest   ,
+        ParamInvoker<T_DEST, T_ELEMENT> invoker,
+        Iterator    <T_ELEMENT        > src
+    ) {
+        while(src.hasNext()) {
+            invoker.invoke(dest, src.next());
+        }
+        return dest;
+    }
+
+    public static ParamInvoker<Collection<Object>, Object> INVOKER_COLLECTION_ADD = new ParamInvoker<Collection<Object>, Object>() {
+        public void invoke(Collection<Object> dest, Object src) {
+            dest.add(src);
+        }
+    };
+    
+    @SuppressWarnings("unchecked")
+    public static <
+        T_Collection__T_ELEMENT extends Collection<T_ELEMENT>,
+        T_ELEMENT
+    > ParamInvoker<T_Collection__T_ELEMENT, T_ELEMENT> invokerCollectionAdd() {
+        return (ParamInvoker<T_Collection__T_ELEMENT, T_ELEMENT>) INVOKER_COLLECTION_ADD;
+    }
+    
     
     public static <V> Collection<V> defaultCollection(Collection<V> src) {
         return (null == src) ? Collections.<V>emptyList() : src;
