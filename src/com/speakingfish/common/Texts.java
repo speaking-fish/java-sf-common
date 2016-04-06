@@ -2,6 +2,8 @@ package com.speakingfish.common;
 
 import static java.lang.Math.*;
 
+import java.util.Iterator;
+
 import com.speakingfish.common.annotation.Compatibility.*;
 
 public class Texts {
@@ -105,6 +107,24 @@ public class Texts {
         return duplicate(count, src.toCharArray());
     }
     
+    public static StringBuilder appendJoin(StringBuilder dest, String delimiter, Iterator<String> iterator) {
+        if(iterator.hasNext()) {
+            dest.append(iterator.next());
+            while(iterator.hasNext()) {
+                dest.append(delimiter);
+                dest.append(iterator.next());
+            }
+        }
+        return dest;
+    }
+
+    public static StringBuilder appendJoin(StringBuilder dest, Iterator<String> iterator) {
+        while(iterator.hasNext()) {
+            dest.append(iterator.next());
+        }
+        return dest;
+    }
+
     static { Dummy.dummy(); }
 
 }
