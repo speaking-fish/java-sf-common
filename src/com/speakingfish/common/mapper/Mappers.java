@@ -3,6 +3,7 @@ package com.speakingfish.common.mapper;
 import java.util.Map.Entry;
 
 import com.speakingfish.common.function.Acceptor;
+import com.speakingfish.common.function.Getter;
 import com.speakingfish.common.function.Mapper;
 import com.speakingfish.common.function.Invoker;
 
@@ -23,6 +24,15 @@ public class Mappers {
         };
     }
 
+    public static <T> Mapper<T, T> passthrough(final Invoker<T> invoker) {
+        return new Mapper<T, T>() {
+            public T apply(T value) {
+                invoker.invoke(value);
+                return value;
+            }
+        };
+    }
+    
     public static <
         KEY, RESULT, SOURCE
     > Mapper<Entry<KEY, RESULT>, Entry<KEY, SOURCE>> mapperEntryValue(
@@ -41,6 +51,15 @@ public class Mappers {
     @SuppressWarnings("unchecked")
     public static <T> Acceptor<T> acceptAssigned() {
         return (Acceptor<T>) ACCEPTOR_IS_ASSIGNED;
+    }
+    
+    public static final Acceptor<Entry<Object, Object>> ACCEPTOR_ENTRY_VALUE_IS_ASSIGNED = new Acceptor<Entry<Object, Object>>() {
+        public boolean test(Entry<Object, Object> value) { return null != value.getValue(); }
+    };
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static <K, V> Acceptor<Entry<K, V>> acceptEntryValueAssigned() {
+        return (Acceptor<Entry<K, V>>) (Acceptor) ACCEPTOR_ENTRY_VALUE_IS_ASSIGNED;
     }
     
     public static <T> Acceptor<T> acceptor(final Mapper<Boolean, T> mapper) {
@@ -111,4 +130,20 @@ public class Mappers {
         return (Mapper<V, Entry<K, V>>) (Mapper) MAPPER_ENTRY_VALUE;
     };
 
+    public static <DEST, SRC> Mapper<DEST, Mapper<DEST, SRC>> mapperApplier(final SRC value) {
+        return new Mapper<DEST, Mapper<DEST, SRC>>() {
+            public DEST apply(Mapper<DEST, SRC> mapper) {
+                return mapper.apply(value);
+            }
+        };
+    }
+
+    public static <DEST, SRC> Mapper<DEST, Mapper<DEST, SRC>> lazyMapperApplier(final Getter<SRC> value) {
+        return new Mapper<DEST, Mapper<DEST, SRC>>() {
+            public DEST apply(Mapper<DEST, SRC> mapper) {
+                return mapper.apply(value.get());
+            }
+        };
+    }
+    
 }

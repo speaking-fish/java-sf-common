@@ -2,14 +2,20 @@ package com.speakingfish.common.collection;
 
 import java.io.Serializable;
 import java.util.AbstractSet;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import com.speakingfish.common.function.ParamInvoker;
 
@@ -114,5 +120,12 @@ public class CollectionHelper {
     public static <E> SortedSet<E> defaultSortedSet(SortedSet<E> src) {
         return (null == src) ? CollectionHelper.<E>emptySortedSet() : src;
     }
+    
+    public static <K, V> HashMap   <K, V> hashMap   () { return new HashMap   <K, V>(); }
+    public static <K, V> TreeMap   <K, V> treeMap   () { return new TreeMap   <K, V>(); }
+    public static <   V> LinkedList<   V> linkedList() { return new LinkedList<   V>(); }
+    public static <   V> ArrayList <   V> arrayList () { return new ArrayList <   V>(); }
+    public static <   V> HashSet   <   V> hashSet   () { return new HashSet   <   V>(); }
+    public static <   V> TreeSet   <   V> treeSet   () { return new TreeSet   <   V>(); }
     
 }

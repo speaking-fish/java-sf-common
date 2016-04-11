@@ -53,7 +53,30 @@ public class Maps {
             }
         };
     }
-    
+
+    public static <
+                      T_DEST_KEY  , T_DEST_VALUE,
+                      T_SRC_KEY   , T_SRC_VALUE
+    > Mapper<
+               Entry <T_DEST_KEY  , T_DEST_VALUE>,
+               Entry <T_SRC_KEY   , T_SRC_VALUE >
+    > makeEntryKeyValueMapper(
+         final Mapper<T_DEST_KEY  , T_SRC_KEY   > mapperKey  ,
+         final Mapper<T_DEST_VALUE, T_SRC_VALUE > mapperValue
+    ) { return new Mapper<
+               Entry <T_DEST_KEY  , T_DEST_VALUE>,
+               Entry <T_SRC_KEY   , T_SRC_VALUE >
+        >() {
+        public Entry <T_DEST_KEY  , T_DEST_VALUE> apply(
+               Entry <T_SRC_KEY   , T_SRC_VALUE > src
+        ) {
+            return keyValue(
+                mapperKey  .apply(src.getKey  ()),
+                mapperValue.apply(src.getValue())
+                );
+        }};
+    }
+               
     public static <
         T_KEY   ,
         T_SOURCE
@@ -91,6 +114,10 @@ public class Maps {
 
     public static <V> Collection<V> mapValues(Map<?, V> src) {
         return (null == src) ? null : src.values();
+    }
+    
+    public static <K, V, M extends Map<K, V>> V mapGet(M src, K key) {
+        return src.get(key);
     }
     
     public static final SortedMap<?, ?> EMPTY_SORTED_MAP = new EmptySortedMap<Object, Object>();
