@@ -119,7 +119,20 @@ public class Maps {
     public static <K, V, M extends Map<K, V>> V mapGet(M src, K key) {
         return src.get(key);
     }
+
+    public static final Mapper<Object, Entry<Object, ?>> MAPPER_ENTRY_KEY = new Mapper<Object, Entry<Object, ?>>() {
+        public Object apply(Entry<Object, ?> entry) { return entry.getKey(); }
+    };
     
+    public static final Mapper<Object, Entry<?, Object>> MAPPER_ENTRY_VALUE = new Mapper<Object, Entry<?, Object>>() {
+        public Object apply(Entry<?, Object> entry) { return entry.getValue(); }
+    };
+    
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public static <T_KEY, T_VALUE> Mapper<T_KEY  , Entry<T_KEY, T_VALUE>> mapEntryKey  () { return (Mapper<T_KEY  , Entry<T_KEY, T_VALUE>>) (Mapper) MAPPER_ENTRY_KEY  ; }
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static <T_KEY, T_VALUE> Mapper<T_VALUE, Entry<T_KEY, T_VALUE>> mapEntryValue() { return (Mapper<T_VALUE, Entry<T_KEY, T_VALUE>>) (Mapper) MAPPER_ENTRY_VALUE; }
+
     public static final SortedMap<?, ?> EMPTY_SORTED_MAP = new EmptySortedMap<Object, Object>();
     
     private static class EmptySortedMap<K, V> extends AbstractMap<K,V> implements SortedMap<K, V>, Serializable {
