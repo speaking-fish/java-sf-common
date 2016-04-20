@@ -146,4 +146,11 @@ public class Mappers {
         };
     }
     
+    public static final Mapper<Object, Object> MAPPER_AS_IS = new Mapper<Object, Object>() {
+        public Object apply(Object src) { return src;}
+    };
+    
+    @SuppressWarnings("unchecked")
+    public static <T> Mapper<T, T> mapperAsIs() { return (Mapper<T, T>) MAPPER_AS_IS; }
+    
 }
