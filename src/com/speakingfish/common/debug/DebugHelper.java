@@ -1,8 +1,11 @@
 package com.speakingfish.common.debug;
 
+import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 public class DebugHelper {
 
@@ -48,4 +51,16 @@ public class DebugHelper {
         }
     }
 
+    public static String debugError(final String message, final Throwable th) {
+        final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        try {
+            final PrintStream dest = new PrintStream(buffer, false, StandardCharsets.UTF_8.name());
+            debugError(dest, message, th);
+            dest.flush();
+            return buffer.toString(StandardCharsets.UTF_8.name());
+        } catch(UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
 }
