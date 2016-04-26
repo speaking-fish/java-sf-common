@@ -17,7 +17,10 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import com.speakingfish.common.function.Getter;
 import com.speakingfish.common.function.ParamInvoker;
+
+import static com.speakingfish.common.Compares.*;
 
 public class CollectionHelper {
 
@@ -32,6 +35,41 @@ public class CollectionHelper {
             dest.add(src.next());
         }
         return dest;
+    }
+    
+
+    public static <
+        T_ELEMENT
+    > T_ELEMENT collectOnlyOne(
+        Iterator<T_ELEMENT                 > src ,
+        Getter  <? extends RuntimeException> none,
+        Getter  <? extends RuntimeException> more
+    ) {
+        if(!src.hasNext()) {
+            throw none.get();
+        }
+        final T_ELEMENT result = src.next();
+        if(src.hasNext()) {
+            throw more.get();
+        }
+        return result;
+    }
+
+    public static <
+        T_ELEMENT
+    > T_ELEMENT collectOneOrNone(
+        Iterator <T_ELEMENT                 > src ,
+        T_ELEMENT                             none,
+        Getter   <? extends RuntimeException> more
+    ) {
+        if(!src.hasNext()) {
+            return none;
+        }
+        final T_ELEMENT result = src.next();
+        if(src.hasNext()) {
+            throw more.get();
+        }
+        return result;
     }
     
     public static <T_DEST, T_ELEMENT> T_DEST collect(
