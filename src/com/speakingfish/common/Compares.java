@@ -1,5 +1,6 @@
 package com.speakingfish.common;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import com.speakingfish.common.annotation.Compatibility.*;
 
@@ -257,6 +258,27 @@ public class Compares {
         }
         return null;
     }
+    
+    public static int compareToIgnoreCase(String a, String b) {
+        if(null == a) {
+            if(null == b) {
+                return 0;
+            } else {
+                return -1;
+            }
+        } else {
+            if(null == b) {
+                return 1;
+            } else {
+                return a.compareToIgnoreCase(b);
+            }
+        }
+    }
+    
+    public static final Comparator<String> COMPARATOR_STRING_IGNORE_CASE = new Comparator<String>() {
+        public int compare(String a, String b) {
+            return compareToIgnoreCase(a, b);
+        }};
 
     static { Dummy.dummy(); }
 

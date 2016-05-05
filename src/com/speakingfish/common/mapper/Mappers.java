@@ -153,4 +153,11 @@ public class Mappers {
     @SuppressWarnings("unchecked")
     public static <T> Mapper<T, T> mapperAsIs() { return (Mapper<T, T>) MAPPER_AS_IS; }
     
+    public static final Mapper<String, Object> MAPPER_TO_STRING = new Mapper<String, Object>() {
+        public String apply(Object v) { return v.toString(); }
+    }; 
+
+    @SuppressWarnings("unchecked")
+    public static <T> Mapper<String, T> mapperToString() { return (Mapper<String, T>) MAPPER_TO_STRING; }
+    
 }

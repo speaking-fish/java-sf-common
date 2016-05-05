@@ -20,8 +20,6 @@ import java.util.TreeSet;
 import com.speakingfish.common.function.Getter;
 import com.speakingfish.common.function.ParamInvoker;
 
-import static com.speakingfish.common.Compares.*;
-
 public class CollectionHelper {
 
     public static <
@@ -165,5 +163,9 @@ public class CollectionHelper {
     public static <   V> ArrayList <   V> arrayList () { return new ArrayList <   V>(); }
     public static <   V> HashSet   <   V> hashSet   () { return new HashSet   <   V>(); }
     public static <   V> TreeSet   <   V> treeSet   () { return new TreeSet   <   V>(); }
+    
+    public static <K, V> TreeMap   <K, V> treeMap   (Comparator<? super K> comparator) { return new TreeMap   <K, V>(comparator); }
+    public static <   V> TreeSet   <   V> treeSet   (Comparator<? super V> comparator) { return new TreeSet   <   V>(comparator); }
+    
     
 }
