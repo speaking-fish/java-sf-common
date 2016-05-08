@@ -275,6 +275,14 @@ public class Compares {
         }
     }
     
+    /**
+     * Allow null values
+     */
+    public static final Comparator<String> COMPARATOR_STRING_IGNORE_CASE = new Comparator<String>() {
+        public int compare(String a, String b) {
+            return compareToIgnoreCase(a, b);
+        }};
+
     static { Dummy.dummy(); }
 
 }
