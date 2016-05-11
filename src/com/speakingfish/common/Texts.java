@@ -31,6 +31,23 @@ public class Texts {
     public static String removeRight(String src, int count) {
         return src.substring(0, max(0, src.length() - count));
     }
+
+    public static String replaceLeft(String src, String match, String replacement) {
+        return 
+            src.startsWith(match)
+            ? replacement + removeLeft(src, match.length())
+            : src;
+        
+    }
+    
+    public static String replaceRight(String src, String match, String replacement) {
+        return 
+            src.endsWith(match)
+            ? removeRight(src, match.length()) + replacement
+            : src;
+        
+    }
+    
     
     public static String removeLeftIgnoreCase(String src, String match) {
         return startsWithIgnoreCase(src, match) ? removeLeft(src, match.length()) : src;
@@ -51,7 +68,7 @@ public class Texts {
     public static String replaceLeftIgnoreCase(String src, String match, String replacement) {
         return 
             startsWithIgnoreCase(src, match)
-            ? replacement + removeLeftIgnoreCase(src, match)
+            ? replacement + removeLeft(src, match.length())
             : src;
         
     }
@@ -59,7 +76,7 @@ public class Texts {
     public static String replaceRightIgnoreCase(String src, String match, String replacement) {
         return 
             endsWithIgnoreCase(src, match)
-            ? removeRightIgnoreCase(src, match) + replacement
+            ? removeRight(src, match.length()) + replacement
             : src;
         
     }
