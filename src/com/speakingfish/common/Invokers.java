@@ -56,6 +56,15 @@ public class Invokers {
                 b.invoke(value);
             }};
     }
+
+    public static <T> Invoker<T> fork(final Invoker<T>... invokers) {
+        return new Invoker<T>() {
+            public void invoke(T value) {
+                for(final Invoker<T> invoker : invokers) {
+                    invoker.invoke(value);
+                }
+            }};
+    }
     
     public static <DEST, SRC> Callback<SRC> callback(final Mapper<DEST, SRC> mapper, final Callback<DEST> callback) {
         return new Callback<SRC>() {
