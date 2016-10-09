@@ -1,5 +1,8 @@
 package com.speakingfish.common;
 
+import java.util.Iterator;
+
+import com.speakingfish.common.function.Acceptor;
 import com.speakingfish.common.function.Callback;
 import com.speakingfish.common.function.Invoker;
 import com.speakingfish.common.function.Mapper;
@@ -88,6 +91,16 @@ public class Invokers {
         } catch(Exception e) {
             throw new RuntimeException(e);
         }
+    }
+    
+    public static <T> Acceptor<T> firstAccepted(T value, Iterator<Acceptor<T>> acceptors) {
+        while(acceptors.hasNext()) {
+            final Acceptor<T> acceptor = acceptors.next();
+            if(acceptor.test(value)) {
+                return acceptor;
+            }
+        }
+        return null;
     }
     
 }
