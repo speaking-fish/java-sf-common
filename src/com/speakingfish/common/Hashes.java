@@ -15,7 +15,7 @@ public class Hashes {
 
     // hash code chain with predefined MAGIC_MULTIPLIER
     
-    public static int hash(int     v, int hashCode) { return v | (MAGIC_MULTIPLIER * hashCode); }
+    public static int hash(int     v, int hashCode) { return v + (MAGIC_MULTIPLIER * hashCode); }
     public static int hash(long    v, int hashCode) { return hash(hash(v), hashCode); }
     public static int hash(float   v, int hashCode) { return hash(hash(v), hashCode); }
     public static int hash(double  v, int hashCode) { return hash(hash(v), hashCode); }
@@ -24,7 +24,7 @@ public class Hashes {
 
     // hash code chain with specified multiplier
     
-    public static int hash(int     v, int multiplier, int hashCode) { return v | (multiplier * hashCode); }
+    public static int hash(int     v, int multiplier, int hashCode) { return v + (multiplier * hashCode); }
     public static int hash(long    v, int multiplier, int hashCode) { return hash(hash(v), multiplier, hashCode); }
     public static int hash(float   v, int multiplier, int hashCode) { return hash(hash(v), multiplier, hashCode); }
     public static int hash(double  v, int multiplier, int hashCode) { return hash(hash(v), multiplier, hashCode); }
@@ -42,7 +42,7 @@ public class Hashes {
     
     // hash chain with specified multiplier
     
-    protected static long hashEncode(int     v, int multiplier, int hashCode) { return v | (multiplier * hashCode); }
+    protected static long hashEncode(int     v, int multiplier, int hashCode) { return v + (multiplier * hashCode); }
     protected static long hashEncode(long    v, int multiplier, int hashCode) { return hash(hash(v), multiplier, hashCode); }
     protected static long hashEncode(float   v, int multiplier, int hashCode) { return hash(hash(v), multiplier, hashCode); }
     protected static long hashEncode(double  v, int multiplier, int hashCode) { return hash(hash(v), multiplier, hashCode); }
