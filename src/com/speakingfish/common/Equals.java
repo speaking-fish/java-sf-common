@@ -14,6 +14,10 @@ public class Equals {
         return Float.floatToRawIntBits(a) == Float.floatToRawIntBits(b);
     }
 
+    public static boolean equalsOf(int a, int b) {
+        return a == b;
+    }
+    
     public static <A, B extends A> boolean equalsOf(A a, B b) {
         if(null == a) {
             return null == b;

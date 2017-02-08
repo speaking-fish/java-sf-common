@@ -2,7 +2,7 @@ package com.speakingfish.common;
 
 public class Hashes {
     
-    protected static final int MAGIC_MULTIPLIER = 23;
+    protected static final int MAGIC_MULTIPLIER = 31;
 
     // single value hash code
     
@@ -51,7 +51,7 @@ public class Hashes {
     
     protected static long hashEncode(int multiplier, int hashCode) { return (((long) multiplier) << 32) | (0xFFFFFFFF & ((long) hashCode)); }
     
-    protected static int hashMultiplier(long hashCode) {return (int) (hashCode >>> 32); }
+    protected static int hashMultiplier(long hashCode) { return (int) (hashCode >>> 32); }
     
     public static int hashResult(long hashCode) { return (int) hashCode; }
 
